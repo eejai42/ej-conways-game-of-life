@@ -11,7 +11,7 @@ namespace GOLConsoleApp
         public int Width { get; set; }
         public int Height { get; set; }
 
-        internal void LoadPNG(string path, int xSegments, int ySegments)
+        public void LoadPNG(string path, int xSegments, int ySegments)
         {
             using (var bitmap = (Bitmap)Image.FromFile(path))
             {
@@ -28,7 +28,7 @@ namespace GOLConsoleApp
                         //Console.WriteLine("CHECKING: {0:0000}x{1:0000} - {2}", xPos, yPos, color);
                         if (color.R + color.G + color.B < 100)
                         {
-                            //Console.WriteLine("FOUND: {0}x{1} - {2}", x, y, color);
+                            //Console.WriteLine("FOUND: {0:00}x{1:00} - {2:0000}x{3:0000} - {4}", x, y, xPos, yPos, color);
                             this.CurrentGeneration.Rows[y][x].IsAlive = true;
                         }
                         else this.CurrentGeneration.Rows[y][x].IsAlive = false;
@@ -39,6 +39,7 @@ namespace GOLConsoleApp
         }
 
         internal Generation CurrentGeneration { get; set; }
+        public bool WrapCells { get; internal set; }
 
         public GameOfLife(int width, int height)
         {

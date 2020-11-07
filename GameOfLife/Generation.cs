@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -45,8 +46,16 @@ namespace GOLConsoleApp
         {
             var sb = new StringBuilder();
             this.Rows.ForEach(row => this.AddRow(sb, row));
-            Console.SetCursorPosition(0, 0);
-            Console.Write(sb.ToString());
+            
+            try
+            {
+                Console.SetCursorPosition(0, 0);
+                Console.Write(sb.ToString());
+            }
+            catch (IOException ioe)
+            {
+                // Ignore IO exceptions
+            }
         }
 
         private void AddRow(StringBuilder sb, List<Cell> row)

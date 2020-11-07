@@ -10,8 +10,6 @@ namespace GOLConsoleApp
         public int RowIndex { get; set; }
         public int ColIndex { get; set; }
         public bool IsAlive { get; set; }
-        public bool WrapCells { get; private set; }
-
         public Cell(int rowIndex, int colIndex)
         {
             this.ParentGeneration = null;
@@ -52,27 +50,28 @@ namespace GOLConsoleApp
 
         private int GetIsParentAlive(int row, int col)
         {
+            var wrap = this.ParentGeneration.Game.WrapCells;
             var width = this.ParentGeneration.Game.Width;
             var height = this.ParentGeneration.Game.Height;
             if (row < 0)
             {
-                if (WrapCells) row = height - 1;
+                if (wrap) row = height - 1;
                 else return 0;
             }
             else if (row >= height)
             {
-                if (WrapCells) row = 0;
+                if (wrap) row = 0;
                 else return 0;
 
             }
             if (col < 0)
             {
-                if (this.WrapCells) col = width - 1;
+                if (wrap) col = width - 1;
                 else return 0;
             }
             else if (col >= width)
             {
-                if (WrapCells) col = 0;
+                if (wrap) col = 0;
                 else return 0;
             }
             return this.ParentGeneration.Rows[row][col].IsAlive ? 1 : 0;

@@ -7,8 +7,10 @@ namespace GOLConsoleApp
     {
         static void Main(string[] args)
         {
-            var gol = new GameOfLife(50, 50);
+            var gol = new GameOfLife(44, 44);
+            gol.WrapCells = false;
             gol.LoadPNG(@"../../../glider_gun.png", 38, 11);
+            //gol.LoadPNG(@"../../../wiggler.png", 44, 44);
             gol.RunForThisManyGenerations(1000);
             Console.WriteLine("Game of life complete");
             Console.ReadKey();
